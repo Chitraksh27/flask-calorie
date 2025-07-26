@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calorie Burnt Predictor</title>
+             <link rel = "stylesheet" href = "{{ url_for ('static', filename = 'style.css') }}">
+    </head>
+    <body>
+        <h1>Calorie Burnt Predictor</h1>
+        <form action = "/predict" method = "POST" enctype = "multipart/form-data">
+            {{ form.csrf_token }}
+            <p>{{ form.gender.label}} {{ form.gender() }}</p>
+            <p>{{ form.age.label }} {{ form.age() }}</p>
+            <p>{{ form.height.label }} {{ form.height() }}</p>
+            <p>{{ form.weight.label }} {{ form.weight() }}</p>
+            <p>{{ form.duration.label }} {{ form.duration() }}</p>
+            <p>{{ form.heart_rate.label }} {{ form.heart_rate() }}</p>
+            <p>{{ form.body_temp.label }} {{ form.body_temp() }}</p>
+            <p>{{ form.submit() }}</p>
+        </form>
+        {% block content %}
+        {% if prediction %}
+            <h2> Predicted Calories which you burnt: {{ prediction }} kilocalories (kcal)</h2>
+            <h3><b>Suggestions for enhancing fitness: </b></h3>
+            {% if prediction >= 200 %}
+                <ul>
+                    {% for tip in pred_tips1 %}
+                    <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            {% elif prediction >= 100 and prediction < 200 %}
+                <ul>
+                    {% for tip in pred_tips2 %}
+                    <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            {% elif prediction < 100 %}
+                <ul>
+                    {% for tip in pred_tips3 %}
+                    <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+        {% endblock %}
+    </body>
+    <footer>
+        <p> The estimation of calories burnt is made using a Random Forest Regression model based on real user dataset from Kaggle, and tuned and optimized using advanced tuning technique</p>
+        <p> Made by Chitraksh Sharma </p>
+    </footer>
+</html>        
