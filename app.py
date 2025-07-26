@@ -8,7 +8,7 @@ import gdown
 import os
 
 MODEL_URL = "https://drive.google.com/uc?id=1kWDn6j2TPNt4mwNJF0KhA7I4pynVMKYe"
-MODEL_PATH = "calories_burnt.sav"
+MODEL_PATH = "/tmp/calories_burnt.sav"
 
 if not os.path.exists(MODEL_PATH):
     print("Downloading model from Google Drive...")
@@ -17,7 +17,7 @@ if not os.path.exists(MODEL_PATH):
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'iamyourgrowth'
 
-model = joblib.load('calories_burnt.sav')
+model = joblib.load(MODEL_PATH)
 scaler = joblib.load('scaler.pkl')
 encoder = joblib.load('gender_encoder.pkl')
 
