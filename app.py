@@ -7,17 +7,17 @@ import pandas as pd
 import gdown
 import os
 
-MODEL_URL = "https://drive.google.com/uc?id=1kWDn6j2TPNt4mwNJF0KhA7I4pynVMKYe"
-MODEL_PATH = "/tmp/calories_burnt.sav"
+# MODEL_URL = "https://drive.google.com/uc?id=1kWDn6j2TPNt4mwNJF0KhA7I4pynVMKYe"
+# MODEL_PATH = "/tmp/calories_burnt.sav"
 
-if not os.path.exists(MODEL_PATH):
-    print("Downloading model from Google Drive...")
-    gdown.download(MODEL_URL, MODEL_PATH, quiet = False)
+# if not os.path.exists(MODEL_PATH):
+#     print("Downloading model from Google Drive...")
+#     gdown.download(MODEL_URL, MODEL_PATH, quiet = False)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'iamyourgrowth'
 
-model = joblib.load(MODEL_PATH)
+model = joblib.load('calories_burnt.sav')
 scaler = joblib.load('scaler.pkl')
 encoder = joblib.load('gender_encoder.pkl')
 
